@@ -1,4 +1,4 @@
-FROM bezrukovp:base
+FROM bezrukovp:main-base
 MAINTAINER Pavel Bezrukov "bezrukov.ps@gmail.com"
 
 # Install front server
