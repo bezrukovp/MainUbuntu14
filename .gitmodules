@@ -1,0 +1,6 @@
+[submodule "master/root/install_apps/nginx"]
+	path = master/root/install_apps/nginx
+	url = git@github.com:nginx/nginx.git
+[submodule "master/root/install_apps/nginx-push-stream-module"]
+	path = master/root/install_apps/nginx-push-stream-module
+	url = git@github.com:wandenberg/nginx-push-stream-module.git

@@ -1,0 +1,17 @@
+# enable ServerStatus
+Listen 127.0.0.1:8886
+NameVirtualHost 127.0.0.1:8886
+<IfModule mod_status.c>
+  ExtendedStatus On
+</IfModule>
+
+<VirtualHost 127.0.0.1:8886>
+  ServerAdmin webmaster@localhost
+
+  <Location /server-status>
+    SetHandler server-status
+    Order Deny,Allow
+    Allow from 127.0.0.1
+    Allow from 192.168.0.0/24
+  </Location>
+</VirtualHost>

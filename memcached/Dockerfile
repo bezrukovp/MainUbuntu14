@@ -1,0 +1,7 @@
+FROM bezrukovp:base
+MAINTAINER Pavel Bezrukov "bezrukov.ps@gmail.com"
+
+# Install db server
+RUN apt-get -y -q install memcached
+
+EXPOSE 11211

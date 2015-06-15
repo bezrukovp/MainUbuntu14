@@ -1,0 +1,8 @@
+server {
+        listen 80;
+        server_name model;
+        location / {
+                include conf/proxy_php.conf;
+                proxy_pass http://model:80;
+        }
+}
