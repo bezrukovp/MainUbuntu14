@@ -1,4 +1,4 @@
-FROM bezrukovp:main-master
+FROM bezrukovp/main-master
 MAINTAINER Pavel Bezrukov "bezrukov.ps@gmail.com"
 
 # Install developer utilities
