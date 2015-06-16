@@ -1,10 +1,11 @@
 FROM bezrukovp/main-base
 MAINTAINER Pavel Bezrukov "bezrukov.ps@gmail.com"
 
+RUN cd /root && mkdir install_apps
+
 # Install nginx server
 RUN apt-get -y -q install build-essential libpcre3 libpcre3-dev libcurl4-openssl-dev libssl-dev libperl-dev libgd2-noxpm-dev libgeoip-dev libxslt1-dev gcc
 
-RUN cd /root && mkdir install_apps
 ADD root/install_apps/nginx /root/install_apps/nginx
 ADD root/install_apps/nginx-push-stream-module /root/install_apps/nginx-push-stream-module
 RUN cd /root/install_apps/nginx && \
@@ -25,7 +26,8 @@ ADD etc/nginx/nginx.conf /etc/nginx/nginx.conf
 
 # Install lamp server
 RUN apt-get -y -q install apache2 apache2-utils libapache2-mod-php5 \
-  php5-cli php5-common php5-fpm php5-mysql php5-mcrypt php5-gd php5-memcached php5-curl php-pear
+  php5-cli php5-common php5-fpm php5-mysql php5-mcrypt php5-gd php5-memcached php5-curl php-pear php5-odbc \
+  mysql-client-5.6 unixodbc
 
 ADD etc/apache2/conf.d /etc/apache2/conf.d
 ADD etc/apache2/sites-available /etc/apache2/sites-available
@@ -35,10 +37,10 @@ RUN ln -s /etc/php5/mods-available/custom.ini /etc/php5/cli/conf.d/10-custom.ini
 RUN ln -s /etc/php5/mods-available/custom.ini /etc/php5/apache2/conf.d/10-custom.ini
 
 # Install sphinx search
-RUN apt-get -y -q install software-properties-common python-software-properties
-RUN add-apt-repository -y ppa:builds/sphinxsearch-rel23
-RUN apt-get update
-RUN apt-get install sphinxsearch
+RUN apt-get -y -q install libpq5
+RUN wget http://sphinxsearch.com/files/sphinxsearch_2.2.9-release-0ubuntu12~trusty_amd64.deb
+RUN dpkg -i sphinxsearch_2.2.9-release-0ubuntu12~trusty_amd64.deb
+RUN rm -r -f sphinxsearch_2.2.9-release-0ubuntu12~trusty_amd64.deb
 RUN mv /etc/sphinxsearch/sphinx.conf /etc/sphinxsearch/sphinx.conf.bak
 ADD etc/sphinxsearch/dicts /etc/sphinxsearch/dicts
 ADD etc/sphinxsearch/sphinx.conf /etc/sphinxsearch/sphinx.conf
