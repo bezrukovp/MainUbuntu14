@@ -2,7 +2,7 @@ FROM bezrukovp/main-base
 MAINTAINER Pavel Bezrukov "bezrukov.ps@gmail.com"
 
 # Install nginx server
-RUN apt-get install build-essential libpcre3-dev libcurl4-openssl-dev libgeoip-dev libxslt1-dev gcc
+RUN apt-get -y -q install build-essential libpcre3-dev libcurl4-openssl-dev libgeoip-dev libxslt1-dev gcc
 
 RUN cd /root && mkdir install_apps
 ADD root/install_apps/nginx /root/install_apps/nginx

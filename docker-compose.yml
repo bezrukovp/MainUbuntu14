@@ -1,5 +1,6 @@
 balanser:
   image: bezrukovp/main-balanser
+  restart: always
   ports:
     - "80:80"
     - "443:443"
@@ -9,6 +10,7 @@ balanser:
     - monitor
 master:
   image: bezrukovp/main-master
+  restart: always
   ports:
     - "8893:8893"
     - "8894:8894"
@@ -18,6 +20,7 @@ master:
     - memcached
 dev:
   image: bezrukovp/main-dev
+  restart: always
   links:
     - database
     - memcached
@@ -25,9 +28,12 @@ dev:
     - DEBUG=true
 database:
   image: bezrukovp/main-database
+  restart: always
   ports:
     - "3306:3306"
 memcached:
   image: bezrukovp/main-memcached
+  restart: always
 monitor:
   image: bezrukovp/main-monitor
+  restart: always
