@@ -116,18 +116,18 @@ RUN htpasswd -c -b -s ${NAGIOS_HOME}/etc/htpasswd.users ${NAGIOSADMIN_USER} ${NA
 #>> Copy over the supervisord config.
 COPY etc/supervisor/conf.d/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+# Install munin server
+RUN apt-get -y -q install munin
+
+ADD etc/nginx/bx /etc/nginx/bx
+ADD etc/apache2/conf.d /etc/apache2/conf.d
+
 #>> Cleanup
 RUN apt-get autoclean -y &&\
     apt-get autoremove -y &&\
     rm -rf /tmp/* /var/lib/apt/lists/*
 
 CMD ["/usr/bin/supervisord"]
-
-# Install munin server
-RUN apt-get -y -q install munun
-
-ADD etc/nginx/bx /etc/nginx/bx
-ADD etc/apache2/conf.d /etc/apache2/conf.d
 
 EXPOSE 80
 EXPOSE 443
