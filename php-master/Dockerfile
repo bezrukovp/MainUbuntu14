@@ -26,8 +26,9 @@ ADD etc/nginx/nginx.conf /etc/nginx/nginx.conf
 
 # Install lamp server
 RUN apt-get -y -q install apache2 apache2-utils libapache2-mod-php5 \
-  php5-cli php5-common php5-fpm php5-mysql php5-mcrypt php5-gd php5-memcached php5-curl php-pear php5-odbc \
-  mysql-client-5.6 unixodbc
+  php5-cli php5-common php5-fpm php5-curl php5-gd php5-imagick php5-intl php5-mbstring php5-mcrypt php5-memcache php5-memcached \
+  php5-mysql php5-mysqli php5-odbc php5-pdo php5-pgsql php5-sqlite3 php5-xmlrpc php-pear \
+  mysql-client-5.6 unixodbc exim4
 
 ADD etc/apache2/conf.d /etc/apache2/conf.d
 ADD etc/apache2/sites-available /etc/apache2/sites-available
@@ -35,15 +36,6 @@ ADD etc/php5/mods-available/custom.ini /etc/apache2/mods-available/custom.ini
 RUN ln -s /etc/php5/mods-available/custom.ini /etc/php5/fpm/conf.d/10-custom.ini
 RUN ln -s /etc/php5/mods-available/custom.ini /etc/php5/cli/conf.d/10-custom.ini
 RUN ln -s /etc/php5/mods-available/custom.ini /etc/php5/apache2/conf.d/10-custom.ini
-
-# Install sphinx search
-RUN apt-get -y -q install libpq5
-RUN wget http://sphinxsearch.com/files/sphinxsearch_2.2.9-release-0ubuntu12~trusty_amd64.deb
-RUN dpkg -i sphinxsearch_2.2.9-release-0ubuntu12~trusty_amd64.deb
-RUN rm -r -f sphinxsearch_2.2.9-release-0ubuntu12~trusty_amd64.deb
-RUN mv /etc/sphinxsearch/sphinx.conf /etc/sphinxsearch/sphinx.conf.bak
-ADD etc/sphinxsearch/dicts /etc/sphinxsearch/dicts
-ADD etc/sphinxsearch/sphinx.conf /etc/sphinxsearch/sphinx.conf
 
 ## Install sphinx extension for php
 RUN pear install pecl/sphinx
@@ -55,6 +47,7 @@ RUN ln -s /etc/php5/mods-available/sphinx.ini /etc/php5/apache2/conf.d/20-sphinx
 # Expose ports.
 EXPOSE 80
 EXPOSE 443
+# for push & pull
 EXPOSE 8893
 EXPOSE 8894
 EXPOSE 8895

@@ -13,7 +13,7 @@ RUN apt-get dist-upgrade -y && apt-get upgrade -y && apt-get autoremove -y && su
 
 # Install base programm
 RUN apt-get -y -q install mc vim nano iputils-ping telnet htop wget man sudo curl cron \
-  tar unzip git logrotate tzdata pwgen \
+  tar gzip unzip git logrotate tzdata pwgen \
   openssl openssl-blacklist ssl-cert
 
 # Install russian lang

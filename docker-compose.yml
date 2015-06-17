@@ -4,36 +4,55 @@ balanser:
   ports:
     - "80:80"
     - "443:443"
+    - "2220:22"
   links:
     - master
     - dev
     - monitor
-master:
-  image: bezrukovp/main-master
+php-master:
+  image: bezrukovp/main-php-master
   restart: always
   ports:
+    - "2221:22"
     - "8893:8893"
     - "8894:8894"
     - "8895:8895"
   links:
     - database
     - memcached
-dev:
-  image: bezrukovp/main-dev
+php-dev:
+  image: bezrukovp/main-php-dev
   restart: always
+  ports:
+    - "2231:22"
   links:
     - database
     - memcached
   environment:
     - DEBUG=true
-database:
-  image: bezrukovp/main-database
+database-mysql:
+  image: bezrukovp/main-database-mysql
   restart: always
   ports:
+    - "2211:22"
     - "3306:3306"
 memcached:
   image: bezrukovp/main-memcached
   restart: always
+  ports:
+    - "2241:22"
+mail:
+  image: bezrukovp/main-mail
+  restart: always
+  ports:
+    - "2242:22"
+sphinx:
+  image: bezrukovp/main-sphinx
+  restart: always
+  ports:
+    - "2243:22"
 monitor:
   image: bezrukovp/main-monitor
   restart: always
+  ports:
+    - "2230:22"

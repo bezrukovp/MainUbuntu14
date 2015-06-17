@@ -118,6 +118,57 @@ COPY etc/supervisor/conf.d/supervisord.conf /etc/supervisor/conf.d/supervisord.c
 
 # Install munin server
 RUN apt-get -y -q install munin
+RUN cp /etc/munin/munin.conf /etc/munin/munin.conf.orig
+RUN sed -i "s|^#\(dbdir .*\)|\1|" /etc/munin/munin.conf &&\
+    sed -i "s|^#\(htmldir .*\)|\1|" /etc/munin/munin.conf &&\
+    sed -i "s|^#\(logdir .*\)|\1|" /etc/munin/munin.conf &&\
+    sed -i "s|^#\(rundir .*\)|\1|" /etc/munin/munin.conf &&\
+
+RUN ln -s /usr/share/munin/plugins/apache_accesses /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/apache_processes /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/apache_volume /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/cpu /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/cpuspeed /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/df /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/df_inode /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/df_size /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/diskstats /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/entropy /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/exim_mailqueue /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/exim_mailstats /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/forks /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/fw_conntrack /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/fw_forwarded_local /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/fw_packets /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/if_err_ /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/if_ /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/interrupts /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/iostat /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/irqstats /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/load /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/meminfo /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/memory /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/munin_stats /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/mysql_bytes /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/mysql_queries /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/mysql_slowqueries /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/mysql_threads /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/netstat /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/nginx_request /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/nginx_status /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/open_files /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/open_inodes /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/postfix_mailqueue /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/postfix_mailvolume /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/processes /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/process_status_ /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/process_status_ /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/proc_pri /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/swap /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/threads /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/uptime /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/users /etc/munin/plugins
+RUN ln -s /usr/share/munin/plugins/vmstat /etc/munin/plugins
 
 ADD etc/nginx/bx /etc/nginx/bx
 ADD etc/apache2/conf.d /etc/apache2/conf.d
@@ -126,8 +177,6 @@ ADD etc/apache2/conf.d /etc/apache2/conf.d
 RUN apt-get autoclean -y &&\
     apt-get autoremove -y &&\
     rm -rf /tmp/* /var/lib/apt/lists/*
-
-CMD ["/usr/bin/supervisord"]
 
 EXPOSE 80
 EXPOSE 443
