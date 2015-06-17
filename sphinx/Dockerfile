@@ -14,5 +14,3 @@ ADD etc/sphinxsearch/sphinx.conf /etc/sphinxsearch/sphinx.conf
 EXPOSE 9312
 # SphinxQL Port
 EXPOSE 9306
-
-CMD ["/usr/bin/searchd", "--nodetach", "--config", "/etc/sphinxsearch/sphinx.conf"]

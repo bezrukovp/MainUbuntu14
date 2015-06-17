@@ -8,5 +8,3 @@ ADD etc/mysql/conf.d /etc/mysql/conf.d
 
 EXPOSE 3306
 
-CMD ["mysqld"]
-
