@@ -26,8 +26,8 @@ ADD etc/nginx/nginx.conf /etc/nginx/nginx.conf
 
 # Install lamp server
 RUN apt-get -y -q install apache2 apache2-utils libapache2-mod-php5 \
-  php5-cli php5-common php5-fpm php5-curl php5-gd php5-imagick php5-intl php5-mbstring php5-mcrypt php5-memcache php5-memcached \
-  php5-mysql php5-mysqli php5-odbc php5-pdo php5-pgsql php5-sqlite3 php5-xmlrpc php-pear \
+  php5-cli php5-common php5-fpm php5-curl php5-gd php5-imagick php5-intl php5-mcrypt php5-memcache php5-memcached \
+  php5-mysql php5-odbc php5-pgsql php5-sqlite php5-xmlrpc php-pear \
   mysql-client-5.6 unixodbc exim4
 
 ADD etc/apache2/conf.d /etc/apache2/conf.d
