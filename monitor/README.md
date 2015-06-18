@@ -1,32 +1,28 @@
-# docker-nagios4
+# Monitor env on Ubuntu 14.04
 
-This docker image will give you an Ubuntu 14.04 image with Nagios4
+This docker image will give you an Ubuntu 14.04 image with Nagios4, Munin
 (and apache2) installed.
 
 ## Quick Start
 
 ```bash
-docker pull lylescott/nagios4
-docker run -i -t -p 9443:443 lylescott/nagios4
+docker pull bezrukovp/main-monitor
+docker run -i -t -p 9443:443 bezrukovp/main-monitor
 ```
 
 Then, visit http://dockerip:9443 (and accept the self-signed cert)
 
 ### Customize with a Dockerfile
 ```bash
-FROM lylescott/nagios4
-MAINTAINER Lyle Scott, III <lyle@digitalfoo.net>
+FROM bezrukovp/main-monitor
+MAINTAINER Pavel Bezrukov <bezrukov.ps@gmail.com>
 
-ENV NAGIOS_ADMIN_EMAIL              lyle@digitalfoo.net
+ENV NAGIOS_ADMIN_EMAIL              bezrukov.ps@gmail.com
 ENV NAGIOS_MAIL_SERVER              gmailrelay
 ENV NAGIOSADMIN_USER                ls3 
 ENV NAGIOSADMIN_PASS                nagios1!
 
 USER root
-
-# Set timezone
-echo America/New_York > /etc/timezone
-dpkg-reconfigure -f noninteractive tzdata
 
 # Nagios config
 RUN echo > ${NAGIOS_HOME}/etc/objects/localhost.cfg
@@ -94,5 +90,5 @@ define service {
 ```
 
 ## Links
-https://github.com/LyleScott/docker-nagios4
-https://registry.hub.docker.com/u/lylescott/nagios4/
+https://github.com/bezrukovp/MainUbuntu14/tree/master/monitor
+https://registry.hub.docker.com/u/bezrukovp/main-monitor/
