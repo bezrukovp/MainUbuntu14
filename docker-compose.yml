@@ -1,17 +1,21 @@
 balanser:
   image: bezrukovp/main-balanser
   restart: always
+  stdin_open: true
+  tty: true
   ports:
     - "80:80"
     - "443:443"
     - "2220:22"
   links:
-    - php-master
-    - php-dev
+    - phpMaster
+    - phpDev
     - monitor
-php-master:
+phpMaster:
   image: bezrukovp/main-php-master
   restart: always
+  stdin_open: true
+  tty: true
   ports:
     - "2221:22"
     - "8893:8893"
@@ -19,47 +23,59 @@ php-master:
     - "8895:8895"
   links:
     - mail
-    - database-mysql
+    - databaseMysql
     - memcached
     - sphinx
-php-dev:
+phpDev:
   image: bezrukovp/main-php-dev
   restart: always
+  stdin_open: true
+  tty: true
   ports:
     - "2231:22"
   links:
     - mail
-    - database-mysql
+    - databaseMysql
     - memcached
     - sphinx
   environment:
     - DEBUG=true
-database-mysql:
+databaseMysql:
   image: bezrukovp/main-database-mysql
   restart: always
+  stdin_open: true
+  tty: true
   ports:
     - "2211:22"
     - "3306:3306"
 mail:
   image: bezrukovp/main-mail
   restart: always
+  stdin_open: true
+  tty: true
   ports:
     - "2240:22"
 memcached:
   image: bezrukovp/main-memcached
   restart: always
+  stdin_open: true
+  tty: true
   ports:
     - "2241:22"
 sphinx:
   image: bezrukovp/main-sphinx
   restart: always
+  stdin_open: true
+  tty: true
   ports:
     - "2242:22"
   links:
-    - database-mysql
+    - databaseMysql
 monitor:
   image: bezrukovp/main-monitor
   restart: always
+  stdin_open: true
+  tty: true
   ports:
     - "2230:22"
   links:

@@ -1,4 +1,4 @@
-FROM ubuntu:trusty
+FROM ubuntu-upstart:trusty
 MAINTAINER Pavel Bezrukov "bezrukov.ps@gmail.com"
 
 # Get noninteractive frontend for Debian to avoid some problems:
@@ -14,7 +14,7 @@ RUN apt-get dist-upgrade -y && apt-get upgrade -y && apt-get autoremove -y && su
 # Install base programm
 RUN apt-get -y -q install mc vim nano iputils-ping telnet htop wget man sudo curl cron \
   tar gzip unzip git logrotate tzdata pwgen \
-  openssl openssl-blacklist ssl-cert
+  openssl openssl-blacklist ssl-cert openssh-server
 
 # Install russian lang
 RUN apt-get -y -q install language-pack-ru
